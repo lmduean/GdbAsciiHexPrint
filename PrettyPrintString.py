@@ -22,6 +22,7 @@ class PrettyPrintString (gdb.Command):
             return
         startingAddress = gdb.parse_and_eval(arg)
         p = 0
+        print('"', end='')
         while startingAddress[p] != ord("\0"):
             charCode = int(startingAddress[p].cast(gdb.lookup_type("char")))
             if chr(charCode) in string.printable:
@@ -29,6 +30,6 @@ class PrettyPrintString (gdb.Command):
             else:
                 print("\\x%x" % charCode, end='')
             p += 1
-        print()
+        print('"')
 
 PrettyPrintString()
