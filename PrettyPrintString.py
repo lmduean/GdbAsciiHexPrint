@@ -5,6 +5,7 @@
 from __future__ import print_function
 
 import gdb
+import string
 class PrettyPrintString (gdb.Command):
     "Command to print strings with a mix of ascii and hex."
 
@@ -22,8 +23,12 @@ class PrettyPrintString (gdb.Command):
         startingAddress = gdb.parse_and_eval(arg)
         p = 0
         while startingAddress[p] != ord("\0"):
-            print("%s" % chr(int(startingAddress[p].cast(gdb.lookup_type("char")))))
-#            print("%c" % str(startingAddress[p]))
+            charCode = int(startingAddress[p].cast(gdb.lookup_type("char")))
+            if chr(charCode) in string.printable:
+                print("%c" % chr(charCode), end='')
+            else:
+                print("\\x%x" % charCode, end='')
             p += 1
+        print()
 
 PrettyPrintString()
