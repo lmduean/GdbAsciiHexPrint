@@ -4,6 +4,7 @@
 # This script provides a command to pretty-print a string with mixed ASCII and
 # non-ASCII characters, as requested in this question
 # https://stackoverflow.com/q/16031100/391161
+# REQUIRES: At least GNU gdb (GDB) 7.7
 
 from __future__ import print_function
 import re
